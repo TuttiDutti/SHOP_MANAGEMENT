@@ -1,0 +1,292 @@
+﻿@model IEnumerable<ShopManagement.Models.Product>
+
+@{
+    ViewData["Title"] = "CreatePZ";
+}
+
+<div id="back">
+    <div class="row align-items-center" id="head">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h4 class="card-title" id="title">Dokumenet PZ</h4>
+                
+            </div>
+        </div>
+        <br />
+        
+        <div>
+           
+                <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 m-3">
+                    <div>
+                    
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartModal" id="show-cart">
+                        Pokaż koszyk
+                    </button>
+                    <a class="btn btn-primary m-3" id="orderBtn" asp-action="Index">Anuluj</a>
+                    </div>
+
+                </div>           
+
+        </div>
+
+    </div>
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Zawartość koszyka</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <div id="info" class="text-danger"></div>
+                <form id="order-form">
+                    <div class="form-group">
+                        <label for="companyName">Nazwa Firmy</label>
+                        <input type="text" class="form-control" id="companyName" name="companyName">
+                    </div>
+                    <div class="form-group">
+                        <label for="nip">NIP</label>
+                        <input type="text" class="form-control" id="nip" name="nip">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Adres</label>
+                        <textarea class="form-control" id="address" name="address"></textarea>
+                    </div>
+                </form>
+                <div id="cart-content"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="update-cart-button">Generuj PZ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <form asp-controller="Order" asp-action="CreatePZ" method="get">
+
+            <div class="row m-3 w-25">
+
+
+                @if (ViewBag.Search == null)
+                {
+                    <input type="search" class="form-control rounded col m-2" placeholder="Szukaj" name="SearchString" />
+                }
+                else
+                {
+                    <input type="search" class="form-control rounded col m-2" value="@ViewBag.Search" name="SearchString" />
+                }
+                <button type="submit" class="col-sm-2 btn" id="myBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </button>
+            </div>
+
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Company)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SerialNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BarCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NetPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GrossPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Company)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SerialNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BarCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NetPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GrossPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        <input type="hidden" name="name" id="name-@item.Id" value="@item.Name" />
+                        <input type="hidden" name="amount" id="amount-@item.Id" value="@item.Amount" />
+                        <input type="hidden" step="0.01" name="price" id="price-@item.Id" value="@item.NetPrice" />
+                        <input for="quantity" class="form-control w-50" type="number" id="quantity-@item.Id" name="quantity">
+
+                        <button type="button" class="btn add-to-cart" data-item-id="@item.Id">Dodaj</button>
+                      <button type="button" class="btn delete-from-cart" data-item-id="@item.Id">Usuń</button>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+<script>
+    let cart = [];
+    document.getElementById('nip').addEventListener('input', function (event) {
+        // Usunięcie wszystkich niecyfrowych znaków
+        let value = event.target.value.replace(/\D/g, '');
+
+        // Usunięcie wiodących zer (poza jednym zerem)
+        value = value.replace(/^0+/, '0');
+
+        // Ustawienie oczyszczonej wartości z powrotem do pola
+        event.target.value = value;
+    });
+    // Obsługa zdarzenia kliknięcia przycisku "Dodaj"
+    var addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            let itemId = button.getAttribute('data-item-id');
+            var quantityInput = document.getElementById('quantity-' + itemId);
+            let quantity = parseInt(quantityInput.value);
+            var nameInput = document.getElementById('name-' + itemId);
+            let name = nameInput.value;
+            var priceInput = document.getElementById('price-' + itemId);
+            let price = parseFloat(priceInput.value.replace(',', '.'));
+            var edit = false;
+            if (quantity > 0) {
+                let item = {
+                    id: itemId,
+                    name: name,
+                    price: price,
+                    quantity: quantity
+                };
+
+                for (var i = 0; i < cart.length; i++) {
+                    if (cart[i].id == item.id) {
+                        cart[i].quantity = item.quantity;
+                        edit = true;
+                        break;
+                    }
+                }
+                if (edit == false) {
+                    cart.push(item);
+                }
+                // Możesz także zaktualizować widok koszyka lub wysłać dane na serwer tutaj
+                console.log('Dodano do koszyka:', item);
+                console.log(price);
+            }
+        });
+    });
+
+    var deleteFromCartButtons = document.querySelectorAll('.delete-from-cart');
+    deleteFromCartButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            let itemId = button.getAttribute('data-item-id');
+
+            for (var i = 0; i < cart.length; i++) {
+                if (cart[i].id == itemId) {
+                    cart.splice(i, 1);
+                    document.getElementById('quantity-' + itemId).value = '';
+                    break;
+                }
+            }
+
+        });
+    });
+
+    var showCartButton = document.getElementById('show-cart');
+
+    function generateCartHTML(cart) {
+        var html = '<ul class="list-group">';
+        cart.forEach(function (item) {
+            html += '<li class="list-group-item">' + item.name + ' - Cena: ' + item.price + ' - Ilość: ' + item.quantity + ' - Razem: ' + item.quantity * item.price + '</li>';
+        });
+        html += '</ul>';
+        console.log(cart)
+        return html;
+    }
+
+    // Obsługa zdarzenia po otwarciu okna modalnego
+    showCartButton.addEventListener('click', function () {
+        var cartContentDiv = document.getElementById('cart-content');
+        var cartContentHTML = generateCartHTML(cart);
+        cartContentDiv.innerHTML = cartContentHTML;
+        document.getElementById('info').innerHTML = '';
+    });
+
+    var updateCart = document.getElementById('update-cart-button');
+
+    updateCart.addEventListener('click', function () {
+        var companyName = document.getElementById('companyName').value;
+        var nip = parseInt(document.getElementById('nip').value);
+        var address = document.getElementById('address').value;
+        let cartData = cart; // Pobierz dane koszyka (przyjmuję, że masz zmienną 'cart' przechowującą dane koszyka)
+
+        if (cartData.length == 0) {
+            document.getElementById('info').innerHTML = 'Twój koszyk jest pusty. Dodaj produkty do koszyka.';
+        }
+        else if (companyName == "" || nip == NaN || address == "") {
+            document.getElementById('info').innerHTML = 'Uzupełnij dane.';
+        }
+        else {
+            let orderData = {
+                Cart: cartData,
+                CompanyName: companyName,
+                Nip: nip,
+                Address: address,
+                Type: 'PZ'
+            };
+            console.log(orderData)
+            $.ajax({
+                url: "/Order/CreatePZ",
+                type: "POST",
+                data: {
+                    'Card': cartData,
+                    'CompanyName': companyName,
+                    'Nip': nip,
+                    'Address': address,
+                    'Type': 'PZ'
+                },
+                success: function (response) {
+                    window.location.href = "https://localhost:7150/Order";
+                }
+
+
+            });
+        }
+
+    });
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

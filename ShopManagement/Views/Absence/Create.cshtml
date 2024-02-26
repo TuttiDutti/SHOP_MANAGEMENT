@@ -1,0 +1,62 @@
+﻿@model ShopManagement.Models.Absence
+
+@{
+    ViewData["Title"] = "Dodaj nieobecność";
+}
+<div id="back">
+    <div id="view">
+        <div class="row align-items-center" id="head">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <h4 class="card-title" id="title">Dodaj nieobecność</h4>
+                </div>
+            </div>
+
+
+        </div>
+        <hr />
+        <div class="row h-100 d-flex align-items-center justify-content-center" id="center">
+            <div class="w-75">
+                <div class="form-group m-2 text-md-center mb-4">
+
+                        <label class="control-label fw-bold" style="font-size:20px">Ilość dostępnego urlopu: @ViewBag.VacationDays</label>
+                    
+
+                </div>
+                <div class="form-group m-2 text-md-center mb-4">
+
+                    <label class="control-label fw-bold text-danger">@ViewBag.Valid</label>
+
+
+                </div>
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="form-group date col">
+                        <label asp-for="DateFrom" class="control-label fw-bold"></label>
+                        <input asp-for="DateFrom" id="in" class="form-control" />
+                        <span asp-validation-for="DateFrom" class="text-danger"></span>
+                    </div>
+                    <div class="form-group date col" id='datetimepicker4'>
+                        <label asp-for="DateTo" class="control-label fw-bold"></label>
+                        <input asp-for="DateTo" id="in" class="form-control" />
+                        <span asp-validation-for="DateTo" class="text-danger"></span>
+                    </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="AbsenceTypeId" class="control-label fw-bold"></label>
+                        <select asp-for="AbsenceTypeId" id="in" asp-items="ViewBag.Types" class="form-control" id="absence">
+                        </select>
+                        <span asp-validation-for="AbsenceTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <input type="submit" value="Dodaj" class="btn btn-primary m-3" />
+                        <a class="btn btn-primary m-3" asp-action="Index">Anuluj</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

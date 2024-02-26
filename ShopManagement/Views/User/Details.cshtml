@@ -1,0 +1,96 @@
+﻿@model ShopManagement.Models.User
+
+@{
+    ViewData["Title"] = "Użytkownik";
+}
+<div id="back">
+    <div id="view">
+        <div class="row align-items-center" id="head">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <h4 class="card-title" id="title">Szczegóły użytkownika</h4>
+                </div>
+            </div>
+            
+
+        </div>
+
+        <div>
+           
+            <hr />
+            <div class="row h-100 d-flex align-items-center justify-content-center" id="center">
+                <div class="w-75">       
+                        <div class="row mb-2">
+                            <div class="form-group m-2 text-md-center mb-4">
+
+                                @if (Model.isBlocked == true)
+                                {
+                                    <label class="control-label fw-bold text-danger">Użytkownik zablokowany</label>
+                                }
+
+                            </div>
+                            <div class="row mb-2">
+                            
+                                <div class="form-group col">
+                                    <label asp-for="Name" class="control-label fw-bold"></label>
+                                    <input asp-for="Name" id="in" class="form-control" readonly />
+
+                                </div>
+                                <div class="form-group col">
+                                    <label asp-for="LastName" class="control-label fw-bold"></label>
+                                    <input asp-for="LastName" id="in" class="form-control" readonly />
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label fw-bold"></label>
+                                <input asp-for="Email" id="in" class="form-control" readonly />
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label asp-for="Login" class="control-label fw-bold"></label>
+                                    <input asp-for="Login" id="in" class="form-control" readonly />
+
+                                </div>
+                                <div class="form-group col">
+                                    <label asp-for="Number" class="control-label fw-bold"></label>
+                                    <input asp-for="Number" id="in" class="form-control" readonly />
+
+                                </div>
+                                <div class="form-group col">
+                                    <label asp-for="VacationDays" class="control-label fw-bold"></label>
+                                    <input asp-for="VacationDays" id="in" class="form-control" readonly />
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="RoleId" class="control-label fw-bold"></label>
+                                <input asp-for="Role.Name" id="in" class="form-control" readonly/>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label asp-for="LogTime" class="control-label fw-bold"></label>
+                                <input asp-for="LogTime" id="in" class="form-control" readonly />
+                            </div>
+
+
+                        <div class="form-group d-flex justify-content-end">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-primary m-3" asp-action="Edit" asp-route-id="@Model?.Id">Edytuj</a>
+                            }
+                           
+                                <a class="btn btn-primary m-3" asp-action="Index">Powrót</a>
+                            </div>
+                        </div>
+               
+                </div>
+           </div>
+        </div>
+       
+    </div>
+</div>
+

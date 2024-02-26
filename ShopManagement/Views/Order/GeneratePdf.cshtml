@@ -1,0 +1,145 @@
+﻿@model ShopManagement.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "GeneratePdf";
+}
+<style>
+	header{
+		display: none;
+	}
+
+	td{
+		width: 500px;
+	}
+
+ #tab table, #tab th, #tab td {
+		border: 1px solid;
+		border-collapse: collapse;
+	}
+	thead{
+		height:fit-content;
+		background-color: #E2E2E2;
+	}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="grid invoice">
+				<div class="grid-body">
+					<div class="invoice-title">
+						
+						<br>
+						<table id="row">
+							<tbody>
+								<tr>
+									<td class="col-sm">
+										<h2>
+											Dokument @Model.Type<br />
+										</h2>
+										<h3>
+											<span>@Model.Number</span>
+										</h3>
+											
+										
+									</td>
+									<td style="text-align: right">
+										<address>
+											<strong>Data wystawienia:</strong><br>
+											@Model.CreatedDate
+										</address>
+									</td>
+								</tr>
+							</tbody>
+							
+						</table>
+					</div>
+					<hr>
+					<table id="row">
+						<tbody>
+							<tr>
+								<td class="col-sm" >
+									<address>
+										<strong>Sprzedawca:</strong><br>
+										ComputerTime sp. z o.o.<br>
+										Wiejska 45A<br>
+										00-000 Białystok<br>
+										NIP: 0000000000<br />								
+									</address>
+								</td>
+								<td class="col-sm" style="text-align: right">
+									<address>
+										<strong>Odbiorca:</strong><br>
+										@Model.Company<br>
+										@Model.Address<br>
+										NIP: @Model.NIP<br>
+									</address>
+								</td>
+							</tr>
+							
+						</tbody>
+						
+					</table>
+					<br />
+					<br />
+
+					<div id="tab">
+						<div class="col-md-12">
+							<table class="table table-striped">
+								<thead>
+									<tr class="line">
+										<td><strong>Lp</strong></td>
+										<td class="text-center"><strong>Nazwa</strong></td>
+										<td class="text-center"><strong>Ilość</strong></td>
+										<td class="text-right"><strong>Cena netto</strong></td>
+										<td class="text-right"><strong>Wartość netto</strong></td>
+										<td class="text-right"><strong>VAT</strong></td>
+										<td class="text-right"><strong>Wartość brutto</strong></td>
+									</tr>
+								</thead>
+								@{
+									var lp = 0;
+
+								}
+								<tbody>
+									@foreach (var item in Model.ProductOrders)
+									{
+										<tr>
+											<td>
+												@{
+													lp++;
+													var price = item.GrossPrice * item.Amuont;
+												}
+												@lp
+											</td>
+											<td >
+												@Html.DisplayFor(modelItem => item.Name)
+											</td>
+											<td>
+												@Html.DisplayFor(modelItem => item.Amuont)
+											</td>
+											<td>
+												@Html.DisplayFor(modelItem => item.NetPrice)
+											</td>
+											<td>
+												@Html.DisplayFor(modelItem => item.Total)
+											</td>
+											<td>
+												@Html.DisplayFor(modelItem => item.VAT)
+											</td>
+											<td>
+												@price
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>

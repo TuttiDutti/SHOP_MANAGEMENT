@@ -1,0 +1,171 @@
+﻿@model ShopManagement.Models.Product
+
+@{
+    ViewData["Title"] = "Edytuj asortyment";
+}
+<div id="back">
+    <div id="view">
+        <div class="row align-items-center" id="head">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <h4 class="card-title" id="title">Edytuj asortyment</h4>
+                </div>
+            </div>
+
+
+        </div>
+        <hr />
+        <div class="row h-100 d-flex align-items-center justify-content-center" id="center">
+            <div class="w-75">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label fw-bold"></label>
+                        <input asp-for="Name" id="in" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Company" class="control-label fw-bold"></label>
+                        <input asp-for="Company" id="in" class="form-control" required />
+                        <span asp-validation-for="Company" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label asp-for="SerialNumber" class="control-label fw-bold"></label>
+                            <input asp-for="SerialNumber" id="in" class="form-control" required />
+                            <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="BarCode" class="control-label fw-bold"></label>
+                            <input asp-for="BarCode" id="in" class="form-control" required />
+                            <span asp-validation-for="BarCode" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label fw-bold"></label>
+                        <textarea asp-for="Description" id="in" class="form-control" required> </textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label asp-for="Offer" class="control-label fw-bold"></label>
+                            <input asp-for="Offer" id="offer" class="form-control" 
+                                style="margin-bottom: 1rem;
+                                border-radius: 5px;
+                                border: 1px solid #D0CFCF;
+                                box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25) inset;" required />
+                            <span asp-validation-for="Offer" class="text-danger"></span>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm m-2 col-sm-2 m-4" onclick="calculateOffer()">Oblicz promocję</button>
+                        <button type="button" class="btn btn-primary btn-sm col-sm-2 m-4" onclick="deleteOffer()">Usuń promocję</button>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label asp-for="NetPrice" class="control-label fw-bold"></label>
+                            <input asp-for="NetPrice" id="netto" class="form-control"
+                                   style="margin-bottom: 1rem;
+                                border-radius: 5px;
+                                border: 1px solid #D0CFCF;
+                                box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25) inset;" required />
+                            <span asp-validation-for="NetPrice" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col">
+                            <label asp-for="VAT" class="control-label fw-bold"></label>
+                            <input asp-for="VAT" id="vat" class="form-control"
+                                   style="margin-bottom: 1rem;
+                                border-radius: 5px;
+                                border: 1px solid #D0CFCF;
+                                box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25) inset;" required />
+                            <span asp-validation-for="VAT" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col">
+                            <label asp-for="GrossPrice" class="control-label fw-bold"></label>
+                            <input asp-for="GrossPrice" id="brutto" class="form-control"
+                                   style="margin-bottom: 1rem;
+                                border-radius: 5px;
+                                border: 1px solid #D0CFCF;
+                                box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25) inset;" readonly required />
+                            <span asp-validation-for="GrossPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                   
+
+                    <button type="button" class="btn btn-primary btn-sm m-2" onclick="calculateBrutto()">Oblicz brutto</button>
+                    <div class="row">
+                         <div class="form-group col">
+                            <label asp-for="Amount" class="control-label fw-bold"></label>
+                            <input asp-for="Amount" id="in" class="form-control" required />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="CategoryId" class="control-label fw-bold"></label>
+                            <select asp-for="CategoryId" id="in" class="form-control" asp-items="ViewBag.Category"></select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group form-check m-2">
+                        <label class="form-check-label fw-bold">
+                            <input class="form-check-input" id="in" asp-for="IsBlocked" /> @Html.DisplayNameFor(model => model.IsBlocked)
+                        </label>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <input type="submit" value="Zapisz" class="btn btn-primary m-3" />
+                        <a class="btn btn-primary m-3" asp-action="Index">Anuluj</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculateBrutto() {
+        var nettoValue = parseFloat(document.getElementById('netto').value.replace(',', '.'));
+        var vatValue = parseFloat(document.getElementById('vat').value.replace(',', '.'));
+
+        if (!isNaN(nettoValue) && !isNaN(vatValue)) {
+            var bruttoValue = nettoValue + (nettoValue * vatValue / 100);
+
+            document.getElementById('brutto').value = bruttoValue.toFixed(2).replace('.', ',');;
+        } else {
+
+            alert('Wprowadź poprawne wartości netto i VAT.');
+        }
+    }
+
+    function calculateOffer(){
+        var nettoValue = parseFloat(document.getElementById('netto').value.replace(',', '.'));
+        var bruttoValue = parseFloat(document.getElementById('brutto').value.replace(',', '.'));
+        var offerValue = parseFloat(document.getElementById('offer').value.replace(',', '.'));
+
+        if (!isNaN(nettoValue) && !isNaN(offerValue)){
+
+                nettoValue = nettoValue * (1 - (offerValue / 100));
+                bruttoValue = bruttoValue * (1 - (offerValue / 100));
+                document.getElementById('netto').value = nettoValue.toFixed(2).replace('.', ',');
+                document.getElementById('brutto').value = bruttoValue.toFixed(2).replace('.', ',');;
+            
+            
+        }
+    }
+    function deleteOffer() {
+        var nettoValue = parseFloat(document.getElementById('netto').value.replace(',', '.'));
+        var bruttoValue = parseFloat(document.getElementById('brutto').value.replace(',', '.'));
+        var offerValue = parseFloat(document.getElementById('offer').value.replace(',', '.'));
+
+        if (!isNaN(nettoValue) && !isNaN(offerValue)) {
+                console.log("Jestem")
+                nettoValue = nettoValue / (1 - (offerValue / 100));
+                bruttoValue = bruttoValue / (1 - (offerValue / 100));
+                document.getElementById('netto').value = nettoValue.toFixed(2).replace('.', ',');
+                document.getElementById('brutto').value = bruttoValue.toFixed(2).replace('.', ',');;
+            document.getElementById('offer').value = 0;
+        }
+    }
+</script>
+

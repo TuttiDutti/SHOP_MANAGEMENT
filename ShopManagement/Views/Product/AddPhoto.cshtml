@@ -1,0 +1,28 @@
+﻿@model ShopManagement.Models.Photo
+
+@{
+    ViewData["Title"] = "AddPhoto";
+}
+<div id="back">
+    <div id="view">
+        <head>
+    <title>Przesyłanie Zdjęcia</title>
+</head>
+<body>
+    <h2>Przesyłanie Zdjęcia</h2>
+    <form method="post" asp-action="AddPhoto" asp-route-id="@Model" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ProductId" />
+        <div class="form-group">
+            <label for="zdjecie">Wybierz zdjęcia:</label>
+            <input type="file" name="zdjecie" id="zdjecie" accept=".jpg, .jpeg, .png, .gif" multiple required />
+        </div>
+        <button type="submit" class="btn btn-primary">Prześlij</button>
+    </form>
+</body>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+    </div>
+</div>
+

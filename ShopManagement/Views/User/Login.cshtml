@@ -1,0 +1,57 @@
+﻿@model ShopManagement.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Logowanie";
+}
+<style>
+    header{
+        display:none;
+    }
+</style>
+
+<div class="align-items-center w-75 d-flex  justify-content-center">
+    <div id="frame" class="form-wrapper col-8 mx-auto mt-auto mb-auto row">
+        <div class="col-md-4" id="photo">
+
+        </div>
+
+        <div class="form-content float-end col mt-3">
+            <div class="form-header d-flex  justify-content-center">
+                <h2 class="form-title mt-5 mb-5 fw-bold">Logowanie</h2>
+            </div>
+            <div class="d-flex  justify-content-center">
+                <form asp-action="Login">
+                    <div class="col-10 text-lg-start">
+                        <div asp-validation-summary="ModelOnly" class="validation-message"></div>
+                        @if (ViewBag.Valid != null)
+                        {
+                             <label class="text-danger">@ViewBag.Valid</label>
+                        }
+                        <div class="form-group">
+                            <label asp-for="Login" id="loginLabel" class="control-label fw-bold"></label><br />
+                            <input asp-for="Login" id="log" class="form-input inputdefault" placeholder="Login" /><br />
+                            <span asp-validation-for="Login" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" id="passLabel" class="control-label fw-bold"></label><br />
+                            <input type="password" asp-for="Password" id="log" class="form-input input-lg" placeholder="Hasło" /><br />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="button-wrapper align-self-end" style="padding-left:20px">
+                            <input type="submit" value="Zaloguj się" id="btnLogin" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            
+
+
+        </div>
+    </div>
+</div>
+
+
+
+

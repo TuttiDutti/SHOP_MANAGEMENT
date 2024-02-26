@@ -1,0 +1,142 @@
+﻿@model ShopManagement.Models.Product
+
+@{
+    ViewData["Title"] = "Szczegóły";
+}
+
+
+<div id="back">
+    <div id="view">
+        <div class="row align-items-center" id="head">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <h4 class="card-title" id="title">Szczegóły asortymentu</h4>
+                </div>
+            </div>
+
+
+        </div>
+        <hr />
+            <div class="row h-100 d-flex align-items-center justify-content-center" id="center">
+                <div class="w-75">
+                    <div class="row mb-2">
+                        <div class="form-group m-2 text-md-center mb-4">
+
+                            @if (Model.IsBlocked == true)
+                            {
+                                <label class="control-label fw-bold text-danger">Asortyment zablokowany</label>
+                            }
+
+                        </div>
+                    
+                        @{
+                            var photos = ViewBag.Photos;
+                            int index = 0;
+                        }
+
+                        <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                @foreach (var photo in photos)
+                                {
+                                    <div class="carousel-item @(index == 0 ? "active" : "") text-center">
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(photo)" alt="Obraz" class="d-block mx-auto" style="height:300px">
+                                    </div>
+                                    index++;
+                                }
+                            </div>
+                            @if(index!=0){
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            }
+                            
+                        </div>
+                    
+                    
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label fw-bold"></label>
+                            <input asp-for="Name" id="in" class="form-control" readonly />
+                        
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Company" class="control-label fw-bold"></label>
+                            <input asp-for="Company" id="in" class="form-control" readonly />
+                        
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label asp-for="SerialNumber" class="control-label fw-bold"></label>
+                                <input asp-for="SerialNumber" id="in" class="form-control" readonly />
+                           
+                            </div>
+                            <div class="form-group col">
+                                <label asp-for="BarCode" class="control-label fw-bold"></label>
+                                <input asp-for="BarCode" id="in" class="form-control" readonly />
+                            
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label fw-bold"></label>
+                            <textarea asp-for="Description" id="in" class="form-control" readonly> </textarea>
+                       
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label asp-for="Offer" class="control-label fw-bold"></label>
+                                <input asp-for="Offer" id="in" class="form-control" readonly />
+                           
+                            </div>
+                       
+                        <div class="row">
+                            <div class="form-group col">
+                                <label asp-for="NetPrice" class="control-label fw-bold"></label>
+                                    <input asp-for="NetPrice" id="in" class="form-control" readonly />
+                            
+                            </div>
+
+                            <div class="form-group col">
+                                <label asp-for="VAT" class="control-label fw-bold"></label>
+                                    <input asp-for="VAT" id="in" class="form-control" readonly />
+                            
+                            </div>
+
+                            <div class="form-group col">
+                                <label asp-for="GrossPrice" class="control-label fw-bold"></label>
+                                <input asp-for="GrossPrice" id="in" class="form-control" readonly  />
+                            
+                            </div>
+                        </div>                   
+                        <div class="row">
+                            <div class="form-group col">
+                                <label asp-for="Amount" class="control-label fw-bold"></label>
+                                    <input asp-for="Amount" id="in" class="form-control" readonly />
+                           
+                            </div>
+                            <div class="form-group col">
+                                <label asp-for="CategoryId" class="control-label fw-bold"></label>
+                                <input asp-for="Category.Name" id="in" class="form-control" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group d-flex justify-content-end">
+                            <a class="btn btn-primary m-3" asp-action="Edit" asp-route-id="@Model?.Id">Edytuj</a> 
+                            <a class="btn btn-primary m-3" asp-controller="Photo" asp-action="Index" asp-route-id="@Model?.Id">Edytuj zdjęcia</a> 
+                            <a class="btn btn-primary m-3" asp-action="Index">Powrót</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

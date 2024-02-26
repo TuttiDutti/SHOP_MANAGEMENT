@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ShopManagement.Models.Photo>
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div id="back">
+    <div id="view">
+        <h1>Edit</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsMain)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.Content)" alt="Obraz" height="200">
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.IsMain)
+            </td>
+
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <a asp-action="ChangeMain" asp-route-id="@item.Id">Main photo</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+    </div>
+</div>
+

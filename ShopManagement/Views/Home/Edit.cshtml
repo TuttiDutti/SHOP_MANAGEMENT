@@ -1,0 +1,52 @@
+﻿@model ShopManagement.Models.Announcement
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div id="back">
+    <div class="row align-items-center" id="head">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h4 class="card-title" id="title">Edytuj ogłoszenie</h4>
+            </div>
+        </div>
+        <br />
+        
+
+    </div>
+    <div class="row m-5">
+        <div class="col-lg-12">
+            <div class="">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <div class="form-group">
+                                    <label asp-for="Title" class="control-label fw-bold"></label>
+                                <input asp-for="Title" id="in" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description" class="control-label fw-bold"></label>
+                                <textarea type="text" id="in" asp-for="Description" class="form-control"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Date" class="control-label fw-bold"></label>
+                                <input asp-for="Date" id="in" class="form-control" />
+                                <span asp-validation-for="Date" class="text-danger"></span>
+                                </div>
+                            <div class="form-group mt-3 d-flex justify-content-end">
+                                    <input type="submit" value="Zapisz" class="btn btn-primary m-3" />
+                                    <a class="btn btn-primary m-3" asp-action="Index">Anuluj</a>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

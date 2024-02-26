@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ShopManagement.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div id="back">    
+    <div class="row align-items-center" id="head">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h4 class="card-title" id="title">Lista kategorii</h4>
+            </div>
+        </div>
+        <br />
+        <div >
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                       
+                 <div>
+                     <a asp-action="Create" class="btn btn-primary" style="margin-right:5rem">Dodaj
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>
+                     </a>
+                 </div>
+                        
+            </div>
+            }
+            
+        </div>
+
+    </div>
+       <div class="row" style="margin:0px">
+        <div class="col-lg-12">
+            <div class="">
+                <div class="table-responsive">
+                    <table class="table  table-hover">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th></th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" asp-action="AddOffer" asp-route-id="@item.Id">Dodaj promocję</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+        </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

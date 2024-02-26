@@ -1,0 +1,54 @@
+﻿@model ShopManagement.Models.Document
+
+@{
+    ViewData["Title"] = "Upload";
+}
+<div id="back">
+    <div id="view">
+        <div class="row align-items-center" id="head">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <h4 class="card-title" id="title">Wgraj dokument</h4>
+                </div>
+            </div>
+
+
+        </div>
+        <hr />
+        <div class="row h-100 d-flex align-items-center justify-content-center" id="center">
+            <div class="w-75">
+                <form method="post" asp-action="Upload" enctype="multipart/form-data">
+                    <div class="form-group mb-2">
+                        <label for="documentTypeId" class="fw-bold">Typ dokumentu:</label>
+                        <select asp-for="DocumentTypeId" id="in" asp-items="ViewBag.Types" name="documentTypeId" class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="description" class="fw-bold">Opis dokumentu:</label>
+                        <textarea asp-for="Description" id="in" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label for="file" class="fw-bold">Wybierz plik:</label>
+                        <input type="file" id="in" name="file" class="form-control-file form-control" accept=".pdf, .xml, .doc" required>
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                            <div class="form-check  mt-3">
+                                <input asp-for="IsPrivate" id="in" class="form-check-input">
+                                <label for="isPrivate" class="form-check-label fw-bold">Tylko dla administratorów</label>
+                            </div>
+                    }
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary m-3">Prześlij</button>
+                        <a class="btn btn-primary m-3" asp-action="Index">Anuluj</a>
+                    </div>
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

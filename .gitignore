@@ -1,0 +1,7 @@
+﻿################################################################################
+# Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
+################################################################################
+
+/ShopManagement/bin/Debug/net6.0/runtimes/win-x86/native/libcef.dll
+/ShopManagement/bin/Debug/net6.0/runtimes/win-x64/native/libcef.dll
+/.vs/ShopManagement/FileContentIndex/90afb6b7-876d-4906-997e-d0a164394e06.vsidx
